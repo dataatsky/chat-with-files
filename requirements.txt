@@ -2,3 +2,5 @@ langchain
 streamlit
 streamlit-chat
 chromadb
+tiktoken
+openai
