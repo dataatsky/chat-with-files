@@ -7,13 +7,14 @@ from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 import os
 
-os.environ["OPENAI_API_KEY"] = st.secrets["open_ai_api_key"]
+#os.environ["OPENAI_API_KEY"] = st.secrets["open_ai_api_key"]
+
+os.environ["OPENAI_API_KEY"] = ""
 
 st.title('CSV Question and answer ChatBot')
 
 
 csv_file_uploaded = st.file_uploader(label="Upload your CSV File here")
-
 
 if csv_file_uploaded is not None:
     def save_file_to_folder(uploadedFile):
@@ -37,10 +38,6 @@ if csv_file_uploaded is not None:
     # Create a question-answering chain using the index
     chain = RetrievalQA.from_chain_type(llm=OpenAI(), chain_type="stuff", retriever=docsearch.vectorstore.as_retriever(), input_key="question")
 
-
-
-
-
     #Creating the chatbot interface
     st.title("Chat wtih your CSV Data")
 
@@ -61,6 +58,7 @@ if csv_file_uploaded is not None:
     def get_text():
         input_text = st.text_input("You: ","Ask Question From your Document?", key="input")
         return input_text
+    
     user_input = get_text()
 
     if user_input:
